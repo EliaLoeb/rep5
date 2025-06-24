@@ -524,6 +524,93 @@ document.write(`
 <p><a name="s1"></a></p>
 <section id="perspectief-1">
 <h3>Perspectief 1<a class="headerlink" href="#perspectief-1" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+
+<span class="c1"># Laad de opgeschoonde dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Bereken leeftijd winnaar en verliezer</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;winner_age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;R_age&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Red&#39;</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;B_age&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;loser_age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;B_age&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Red&#39;</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;R_age&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Filter op realistische leeftijden</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;winner_age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;loser_age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">50</span><span class="p">))]</span>
+
+<span class="c1"># Maak twee datasets: één voor winnaars, één voor verliezers</span>
+<span class="n">winner_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> <span class="s1">&#39;winner_age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Winnaar&#39;</span>
+<span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;winner_age&#39;</span><span class="p">]</span>
+
+<span class="n">loser_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> <span class="s1">&#39;loser_age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">loser_df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Verliezer&#39;</span>
+<span class="n">loser_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loser_df</span><span class="p">[</span><span class="s1">&#39;loser_age&#39;</span><span class="p">]</span>
+
+<span class="c1"># Combineer in één dataframe</span>
+<span class="n">combined_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">winner_df</span><span class="p">,</span> <span class="n">loser_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Gewichtsklassen in juiste volgorde van licht naar zwaar (alleen mannelijke klassen)</span>
+<span class="n">gewichtsklassen</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Flyweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Bantamweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Featherweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Lightweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Welterweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Middleweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;LightHeavyweight&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Heavyweight&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Zet als categorische kolom met vaste volgorde</span>
+<span class="n">combined_df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">combined_df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winnaar&#39;</span><span class="p">,</span> <span class="s1">&#39;Verliezer&#39;</span><span class="p">])</span>
+<span class="n">combined_df</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">combined_df</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="n">gewichtsklassen</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Interactieve boxplot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">combined_df</span><span class="p">,</span>
+             <span class="n">x</span><span class="o">=</span><span class="s1">&#39;weight_class&#39;</span><span class="p">,</span>
+             <span class="n">y</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;result&#39;</span><span class="p">,</span>
+             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Leeftijd van Winnaars vs Verliezers per Gewichtsklasse&#39;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                 <span class="s1">&#39;weight_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Gewichtsklasse&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;Leeftijd&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="s1">&#39;Uitkomst&#39;</span>
+             <span class="p">},</span>
+             <span class="n">points</span><span class="o">=</span><span class="s1">&#39;outliers&#39;</span><span class="p">,</span>
+             <span class="n">category_orders</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;weight_class&#39;</span><span class="p">:</span> <span class="n">gewichtsklassen</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Winnaar&#39;</span><span class="p">,</span> <span class="s1">&#39;Verliezer&#39;</span><span class="p">]},</span>
+             <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winnaar&#39;</span><span class="p">:</span> <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span> <span class="s1">&#39;Verliezer&#39;</span><span class="p">:</span> <span class="s1">&#39;indianred&#39;</span><span class="p">})</span>
+
+<span class="c1"># Stijl en layout</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">selector</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+    <span class="n">trace</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span>
+    <span class="n">boxgap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">bargap</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">boxgroupgap</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;honeydew&#39;</span><span class="p">,</span>
+    <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;honeydew&#39;</span><span class="p">,</span>
+    <span class="n">xaxis_tickangle</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">600</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
 </section>
 </section>
 <div class="toctree-wrapper compound">
