@@ -513,59 +513,33 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
-<span class="nn">~\AppData\Local\Temp\ipykernel_25392\1003291079.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> <span class="s1">&#39;B_fighter&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span> 
-<span class="g g-Whitespace">     </span><span class="mi">26</span> 
-<span class="g g-Whitespace">     </span><span class="mi">27</span> 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   R_age  B_age  R_Height_cms  B_Height_cms  R_Reach_cms  B_Reach_cms  \
+0   27.0   31.0        170.18        165.10       177.80       170.18   
+1   28.0   32.0        182.88        187.96       187.96       193.04   
+5   41.0   27.0        182.88        177.80       190.50       182.88   
+6   31.0   35.0        182.88        180.34       180.34       193.04   
+7   37.0   28.0        185.42        190.50       195.58       205.74   
 
-<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span>             <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">167</span>             <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">170</span>         <span class="n">op</span> <span class="o">=</span> <span class="n">_MergeOperation</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>             <span class="n">left_df</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">right_df</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">173</span>             <span class="n">how</span><span class="o">=</span><span class="n">how</span><span class="p">,</span>
+   R_avg_SIG_STR_pct  B_avg_SIG_STR_pct  R_avg_TD_pct  B_avg_TD_pct  \
+0           0.500000           0.420000      0.000000      0.330000   
+1           0.576875           0.660000      0.406250      0.300000   
+5           0.565156           0.515000      0.337031      0.435000   
+6           0.493125           0.459277      0.000000      0.322188   
+7           0.515636           0.791582      0.355824      0.269199   
 
-<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(self, left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, indicator, validate)</span>
-<span class="g g-Whitespace">    </span><span class="mi">790</span>             <span class="bp">self</span><span class="o">.</span><span class="n">right_join_keys</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">791</span>             <span class="bp">self</span><span class="o">.</span><span class="n">join_names</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">792</span>             <span class="n">left_drop</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">793</span>             <span class="n">right_drop</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">794</span>         <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_merge_keys</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">795</span> 
-<span class="g g-Whitespace">    </span><span class="mi">796</span>         <span class="k">if</span> <span class="n">left_drop</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">797</span>             <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">_drop_labels_or_levels</span><span class="p">(</span><span class="n">left_drop</span><span class="p">)</span>
+   R_avg_SUB_ATT  B_avg_SUB_ATT  weight_class Winner  age_diff  height_diff  \
+0       0.000000       0.500000  Bantamweight    Red      -4.0         5.08   
+1       0.250000       1.500000  Middleweight    Red      -4.0        -5.08   
+5       0.039062       1.250000   Lightweight   Blue      14.0         5.08   
+6       0.000000       0.189453  Welterweight   Blue      -4.0         2.54   
+7       0.000092       0.029297  Middleweight    Red       9.0        -5.08   
 
-<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1293</span>                         <span class="c1"># Then we&#39;re either Hashable or a wrong-length arraylike,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1294</span>                         <span class="c1">#  the latter of which will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">1295</span>                         <span class="n">rk</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">rk</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1296</span>                         <span class="k">if</span> <span class="n">rk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1297</span>                             <span class="n">right_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">_get_label_or_level_values</span><span class="p">(</span><span class="n">rk</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1298</span>                         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1299</span>                             <span class="c1"># work-around for merge_asof(right_index=True)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1300</span>                             <span class="n">right_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">_values</span><span class="p">)</span>
-
-<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\generic.py</span> in <span class="ni">?</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1907</span>             <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">other_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">1908</span>         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_level_reference</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1909</span>             <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
-<span class="g g-Whitespace">   </span><span class="mi">1910</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1911</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1912</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1913</span>         <span class="c1"># Check for duplicates</span>
-<span class="g g-Whitespace">   </span><span class="mi">1914</span>         <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-
-<span class="ne">KeyError</span>: &#39;R_fighter&#39;
+   reach_diff  strike_acc_diff  td_acc_diff  sub_att_diff  
+0        7.62         0.080000    -0.330000     -0.500000  
+1       -5.08        -0.083125     0.106250     -1.250000  
+5        7.62         0.050156    -0.097969     -1.210938  
+6      -12.70         0.033848    -0.322188     -0.189453  
+7      -10.16        -0.275946     0.086625     -0.029205  
 </pre></div>
 </div>
 </div>
