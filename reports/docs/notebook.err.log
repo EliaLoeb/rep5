@@ -37,103 +37,165 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 import pandas as pd
+# Stap 1: Laad de datasets 
 
-# Stap 1: Laad de datasets
-df1 = pd.read_csv("data.csv")           # Rajeevw (prestaties en fysieke data)
-df2 = pd.read_csv("ufc-master.csv")     # Mdabbert (aanvullende info)
+df1 = pd.read_csv("data.csv") # Rajeevw (prestaties en fysieke data) 
 
-# Stap 2: Harmoniseer kolomnamen in df2
-df2 = df2.rename(columns={
-    'RedFighter': 'R_fighter',
-    'BlueFighter': 'B_fighter'
-})
+df2 = pd.read_csv("ufc-master.csv") # Mdabbert (aanvullende info) 
 
-# Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)
-df_merged = pd.merge(df1, df2, on=['R_fighter', 'B_fighter'], how='inner')
+ 
 
-# Stap 4: Selecteer relevante kolommen
-relevant_columns = [
-    'R_age', 'B_age',
-    'R_Height_cms', 'B_Height_cms',
-    'R_Reach_cms', 'B_Reach_cms',
-    'R_avg_SIG_STR_pct', 'B_avg_SIG_STR_pct',
-    'R_avg_TD_pct', 'B_avg_TD_pct',
-    'R_avg_SUB_ATT', 'B_avg_SUB_ATT',
-    'weight_class',
-    'Winner_x'
-]
-df_clean = df_merged[relevant_columns].copy()
+# Stap 2: Harmoniseer kolomnamen in df2 
 
-# Stap 5: Verwijder onbekende waarden
-df_clean = df_clean.replace(['Unknown', 'Unclear', 'unk', 'UNK', '?'], pd.NA)
+df2 = df2.rename(columns={ 
 
-# Stap 6: Verwijder rijen met ontbrekende waarden
-df_clean = df_clean.dropna()
+'RedFighter': 'R_fighter', 
 
-# Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen
-df_clean = df_clean[~df_clean['weight_class'].str.contains('Catch|Women', case=False, na=False)]
+'BlueFighter': 'B_fighter' 
 
-# Stap 8: Hernoem 'Winner_x' naar 'Winner'
-df_clean = df_clean.rename(columns={'Winner_x': 'Winner'})
+}) 
 
-# Stap 9: Voeg verschilvariabelen toe
-df_clean['age_diff'] = df_clean['R_age'] - df_clean['B_age']
-df_clean['height_diff'] = df_clean['R_Height_cms'] - df_clean['B_Height_cms']
-df_clean['reach_diff'] = df_clean['R_Reach_cms'] - df_clean['B_Reach_cms']
-df_clean['strike_acc_diff'] = df_clean['R_avg_SIG_STR_pct'] - df_clean['B_avg_SIG_STR_pct']
-df_clean['td_acc_diff'] = df_clean['R_avg_TD_pct'] - df_clean['B_avg_TD_pct']
-df_clean['sub_att_diff'] = df_clean['R_avg_SUB_ATT'] - df_clean['B_avg_SUB_ATT']
+ 
 
-# Stap 10: Opslaan als nieuwe CSV
-df_clean.to_csv("ufc_clean.csv", index=False)
+# Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd) 
 
-# Stap 11: Eerste 5 rijen laten zien
-print(df_clean.head(5))
+df_merged = pd.merge(df1, df2, on=['R_fighter', 'B_fighter'], how='inner') 
+
+ 
+
+# Stap 4: Selecteer relevante kolommen 
+
+relevant_columns = [ 
+
+'R_age', 'B_age', 
+
+'R_Height_cms', 'B_Height_cms', 
+
+'R_Reach_cms', 'B_Reach_cms', 
+
+'R_avg_SIG_STR_pct', 'B_avg_SIG_STR_pct', 
+
+'R_avg_TD_pct', 'B_avg_TD_pct', 
+
+'R_avg_SUB_ATT', 'B_avg_SUB_ATT', 
+
+'weight_class', 
+
+'Winner_x' 
+
+] 
+
+df_clean = df_merged[relevant_columns].copy() 
+
+ 
+
+# Stap 5: Verwijder onbekende waarden 
+
+df_clean = df_clean.replace(['Unknown', 'Unclear', 'unk', 'UNK', '?'], pd.NA) 
+
+ 
+
+# Stap 6: Verwijder rijen met ontbrekende waarden 
+
+df_clean = df_clean.dropna() 
+
+ 
+
+# Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen 
+
+df_clean = df_clean[~df_clean['weight_class'].str.contains('Catch|Women', case=False, na=False)] 
+
+ 
+
+# Stap 8: Hernoem 'Winner_x' naar 'Winner' 
+
+df_clean = df_clean.rename(columns={'Winner_x': 'Winner'}) 
+
+ 
+
+# Stap 9: Voeg verschilvariabelen toe 
+
+df_clean['age_diff'] = df_clean['R_age'] - df_clean['B_age'] 
+
+df_clean['height_diff'] = df_clean['R_Height_cms'] - df_clean['B_Height_cms'] 
+
+df_clean['reach_diff'] = df_clean['R_Reach_cms'] - df_clean['B_Reach_cms'] 
+
+df_clean['strike_acc_diff'] = df_clean['R_avg_SIG_STR_pct'] - df_clean['B_avg_SIG_STR_pct'] 
+
+df_clean['td_acc_diff'] = df_clean['R_avg_TD_pct'] - df_clean['B_avg_TD_pct'] 
+
+df_clean['sub_att_diff'] = df_clean['R_avg_SUB_ATT'] - df_clean['B_avg_SUB_ATT'] 
+
+ 
+
+# Stap 10: Opslaan als nieuwe CSV 
+
+df_clean.to_csv("ufc_clean.csv", index=False) 
+
+ 
+
+# Stap 11: Eerste 5 rijen laten zien 
+
+print(df_clean.head(5)) 
 ------------------
 
+----- stderr -----
+C:\Users\Gebruiker\AppData\Local\Temp\ipykernel_23344\1003291079.py:4: DtypeWarning: Columns (10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,141,142,143) have mixed types. Specify dtype option on import or set low_memory=False.
+  df1 = pd.read_csv("data.csv") # Rajeevw (prestaties en fysieke data)
+------------------
 
 [31m---------------------------------------------------------------[39m
-[31mAttributeError[39m                Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 36[39m
-[32m     33[39m df_clean = df_clean.dropna()
-[32m     35[39m [38;5;66;03m# Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen[39;00m
-[32m---> [39m[32m36[39m df_clean = df_clean[~[43mdf_clean[49m[43m[[49m[33;43m'[39;49m[33;43mweight_class[39;49m[33;43m'[39;49m[43m][49m[43m.[49m[43mstr[49m.contains([33m'[39m[33mCatch|Women[39m[33m'[39m, case=[38;5;28;01mFalse[39;00m, na=[38;5;28;01mFalse[39;00m)]
-[32m     38[39m [38;5;66;03m# Stap 8: Hernoem 'Winner_x' naar 'Winner'[39;00m
-[32m     39[39m df_clean = df_clean.rename(columns={[33m'[39m[33mWinner_x[39m[33m'[39m: [33m'[39m[33mWinner[39m[33m'[39m})
+[31mKeyError[39m                      Traceback (most recent call last)
+[32m~\AppData\Local\Temp\ipykernel_23344\1003291079.py[39m in [36m?[39m[34m()[39m
+[32m     20[39m 
+[32m     21[39m 
+[32m     22[39m [38;5;66;03m# Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)[39;00m
+[32m     23[39m 
+[32m---> [39m[32m24[39m df_merged = pd.merge(df1, df2, on=[[33m'R_fighter'[39m, [33m'B_fighter'[39m], how=[33m'inner'[39m)
+[32m     25[39m 
+[32m     26[39m 
+[32m     27[39m 
 
-[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\generic.py:6318[39m, in [36mNDFrame.__getattr__[39m[34m(self, name)[39m
-[32m   6311[39m [38;5;28;01mif[39;00m (
-[32m   6312[39m     name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._internal_names_set
-[32m   6313[39m     [38;5;129;01mand[39;00m name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._metadata
-[32m   6314[39m     [38;5;129;01mand[39;00m name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._accessors
-[32m   6315[39m     [38;5;129;01mand[39;00m [38;5;28mself[39m._info_axis._can_hold_identifiers_and_holds_name(name)
-[32m   6316[39m ):
-[32m   6317[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[name]
-[32m-> [39m[32m6318[39m [38;5;28;01mreturn[39;00m [38;5;28;43mobject[39;49m[43m.[49m[34;43m__getattribute__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43mname[49m[43m)[49m
+[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)[39m
+[32m    166[39m             validate=validate,
+[32m    167[39m             copy=copy,
+[32m    168[39m         )
+[32m    169[39m     [38;5;28;01melse[39;00m:
+[32m--> [39m[32m170[39m         op = _MergeOperation(
+[32m    171[39m             left_df,
+[32m    172[39m             right_df,
+[32m    173[39m             how=how,
 
-[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\accessor.py:224[39m, in [36mCachedAccessor.__get__[39m[34m(self, obj, cls)[39m
-[32m    221[39m [38;5;28;01mif[39;00m obj [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[32m    222[39m     [38;5;66;03m# we're accessing the attribute of the class, i.e., Dataset.geo[39;00m
-[32m    223[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m._accessor
-[32m--> [39m[32m224[39m accessor_obj = [38;5;28;43mself[39;49m[43m.[49m[43m_accessor[49m[43m([49m[43mobj[49m[43m)[49m
-[32m    225[39m [38;5;66;03m# Replace the property with the accessor object. Inspired by:[39;00m
-[32m    226[39m [38;5;66;03m# https://www.pydanny.com/cached-property.html[39;00m
-[32m    227[39m [38;5;66;03m# We need to use object.__setattr__ because we overwrite __setattr__ on[39;00m
-[32m    228[39m [38;5;66;03m# NDFrame[39;00m
-[32m    229[39m [38;5;28mobject[39m.[34m__setattr__[39m(obj, [38;5;28mself[39m._name, accessor_obj)
+[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(self, left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, indicator, validate)[39m
+[32m    790[39m             self.right_join_keys,
+[32m    791[39m             self.join_names,
+[32m    792[39m             left_drop,
+[32m    793[39m             right_drop,
+[32m--> [39m[32m794[39m         ) = self._get_merge_keys()
+[32m    795[39m 
+[32m    796[39m         [38;5;28;01mif[39;00m left_drop:
+[32m    797[39m             self.left = self.left._drop_labels_or_levels(left_drop)
 
-[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:194[39m, in [36mStringMethods.__init__[39m[34m(self, data)[39m
-[32m    191[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m__init__[39m([38;5;28mself[39m, data) -> [38;5;28;01mNone[39;00m:
-[32m    192[39m     [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpandas[39;00m[34;01m.[39;00m[34;01mcore[39;00m[34;01m.[39;00m[34;01marrays[39;00m[34;01m.[39;00m[34;01mstring_[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m StringDtype
-[32m--> [39m[32m194[39m     [38;5;28mself[39m._inferred_dtype = [38;5;28;43mself[39;49m[43m.[49m[43m_validate[49m[43m([49m[43mdata[49m[43m)[49m
-[32m    195[39m     [38;5;28mself[39m._is_categorical = [38;5;28misinstance[39m(data.dtype, CategoricalDtype)
-[32m    196[39m     [38;5;28mself[39m._is_string = [38;5;28misinstance[39m(data.dtype, StringDtype)
+[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(self)[39m
+[32m   1293[39m                         [38;5;66;03m# Then we're either Hashable or a wrong-length arraylike,[39;00m
+[32m   1294[39m                         [38;5;66;03m#  the latter of which will raise[39;00m
+[32m   1295[39m                         rk = cast(Hashable, rk)
+[32m   1296[39m                         [38;5;28;01mif[39;00m rk [38;5;28;01mis[39;00m [38;5;28;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[32m-> [39m[32m1297[39m                             right_keys.append(right._get_label_or_level_values(rk))
+[32m   1298[39m                         [38;5;28;01melse[39;00m:
+[32m   1299[39m                             [38;5;66;03m# work-around for merge_asof(right_index=True)[39;00m
+[32m   1300[39m                             right_keys.append(right.index._values)
 
-[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:248[39m, in [36mStringMethods._validate[39m[34m(data)[39m
-[32m    245[39m inferred_dtype = lib.infer_dtype(values, skipna=[38;5;28;01mTrue[39;00m)
-[32m    247[39m [38;5;28;01mif[39;00m inferred_dtype [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m allowed_types:
-[32m--> [39m[32m248[39m     [38;5;28;01mraise[39;00m [38;5;167;01mAttributeError[39;00m([33m"[39m[33mCan only use .str accessor with string values![39m[33m"[39m)
-[32m    249[39m [38;5;28;01mreturn[39;00m inferred_dtype
+[32m~\miniconda3\Lib\site-packages\pandas\core\generic.py[39m in [36m?[39m[34m(self, key, axis)[39m
+[32m   1907[39m             values = self.xs(key, axis=other_axes[[32m0[39m])._values
+[32m   1908[39m         [38;5;28;01melif[39;00m self._is_level_reference(key, axis=axis):
+[32m   1909[39m             values = self.axes[axis].get_level_values(key)._values
+[32m   1910[39m         [38;5;28;01melse[39;00m:
+[32m-> [39m[32m1911[39m             [38;5;28;01mraise[39;00m KeyError(key)
+[32m   1912[39m 
+[32m   1913[39m         [38;5;66;03m# Check for duplicates[39;00m
+[32m   1914[39m         [38;5;28;01mif[39;00m values.ndim > [32m1[39m:
 
-[31mAttributeError[39m: Can only use .str accessor with string values!
+[31mKeyError[39m: 'R_fighter'
 
