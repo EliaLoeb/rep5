@@ -377,9 +377,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -395,14 +393,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -417,24 +407,12 @@ document.write(`
 <p>De volgende code is gebruikt om de datasets op te schonen, te filteren en samen te voegen.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import packages</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="load-data">
-<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this heading">#</a></h2>
-<p>You can put your data at the same directory as the notebook file and then use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to load the data.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stap 1: Laad de datasets </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># Stap 1: Laad de datasets </span>
 
-<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>           <span class="c1"># Rajeevw (prestaties en fysieke data) </span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span> <span class="c1"># Rajeevw (prestaties en fysieke data) </span>
 
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc-master.csv&quot;</span><span class="p">)</span>     <span class="c1"># Mdabbert (aanvullende info) </span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc-master.csv&quot;</span><span class="p">)</span> <span class="c1"># Mdabbert (aanvullende info) </span>
 
  
 
@@ -442,9 +420,9 @@ document.write(`
 
 <span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> 
 
-    <span class="s1">&#39;RedFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;RedFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;BlueFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;B_fighter&#39;</span> 
+<span class="s1">&#39;BlueFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;B_fighter&#39;</span> 
 
 <span class="p">})</span> 
 
@@ -460,21 +438,21 @@ document.write(`
 
 <span class="n">relevant_columns</span> <span class="o">=</span> <span class="p">[</span> 
 
-    <span class="s1">&#39;R_age&#39;</span><span class="p">,</span> <span class="s1">&#39;B_age&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_age&#39;</span><span class="p">,</span> <span class="s1">&#39;B_age&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;R_Height_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Height_cms&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_Height_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Height_cms&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> 
+<span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> 
 
-    <span class="s1">&#39;Winner_x&#39;</span> 
+<span class="s1">&#39;Winner_x&#39;</span> 
 
 <span class="p">]</span> 
 
@@ -535,15 +513,54 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>           <span class="c1"># Rajeevw (prestaties en fysieke data)</span>
-                                  <span class="o">^</span>
-<span class="ne">SyntaxError</span>: invalid non-printable character U+202F
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">68</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="c1"># Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen </span>
+<span class="ne">---&gt; </span><span class="mi">68</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="o">~</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Catch|Women&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> 
+<span class="g g-Whitespace">     </span><span class="mi">72</span> <span class="c1"># Stap 8: Hernoem &#39;Winner_x&#39; naar &#39;Winner&#39; </span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winner_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Winner&#39;</span><span class="p">})</span> 
+
+<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\generic.py:6318,</span> in <span class="ni">NDFrame.__getattr__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6311</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">6312</span>     <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_names_set</span>
+<span class="g g-Whitespace">   </span><span class="mi">6313</span>     <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+<span class="g g-Whitespace">   </span><span class="mi">6314</span>     <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessors</span>
+<span class="g g-Whitespace">   </span><span class="mi">6315</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_axis</span><span class="o">.</span><span class="n">_can_hold_identifiers_and_holds_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">6316</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">6317</span>     <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">-&gt; </span><span class="mi">6318</span> <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\accessor.py:224,</span> in <span class="ni">CachedAccessor.__get__</span><span class="nt">(self, obj, cls)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="c1"># we&#39;re accessing the attribute of the class, i.e., Dataset.geo</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessor</span>
+<span class="ne">--&gt; </span><span class="mi">224</span> <span class="n">accessor_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="c1"># Replace the property with the accessor object. Inspired by:</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span> <span class="c1"># https://www.pydanny.com/cached-property.html</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span> <span class="c1"># We need to use object.__setattr__ because we overwrite __setattr__ on</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="c1"># NDFrame</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">accessor_obj</span><span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:194,</span> in <span class="ni">StringMethods.__init__</span><span class="nt">(self, data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">191</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span>     <span class="kn">from</span><span class="w"> </span><span class="nn">pandas.core.arrays.string_</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringDtype</span>
+<span class="ne">--&gt; </span><span class="mi">194</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_inferred_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_categorical</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">CategoricalDtype</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_string</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">StringDtype</span><span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:248,</span> in <span class="ni">StringMethods._validate</span><span class="nt">(data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="n">inferred_dtype</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">infer_dtype</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="k">if</span> <span class="n">inferred_dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_types</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">248</span>     <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Can only use .str accessor with string values!&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span> <span class="k">return</span> <span class="n">inferred_dtype</span>
+
+<span class="ne">AttributeError</span>: Can only use .str accessor with string values!
 </pre></div>
 </div>
 </div>
 </div>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -591,21 +608,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
