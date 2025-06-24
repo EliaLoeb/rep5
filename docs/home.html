@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Jupyter Book Tutorial &#8212; Jupyter Book Template</title>
+    <title>UFC &#8212; Jupyter Book Template</title>
   
   
   
@@ -170,7 +170,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Jupyter Book Tutorial
+                    UFC
                 </a>
             </li>
         </ul>
@@ -392,7 +392,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Jupyter Book Tutorial</h1>
+    <h1>UFC</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,8 +402,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inleiding">inleiding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-github-account">Register a GitHub account</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-personal-access-token">Create a GitHub personal access token</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment-to-run-jupyter-notebook">Install the environment to run Jupyter notebook</a></li>
@@ -433,35 +433,110 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-book-tutorial">
-<h1>Jupyter Book Tutorial<a class="headerlink" href="#jupyter-book-tutorial" title="Permalink to this heading">#</a></h1>
-<p>(testestestestes)</p>
-<p>In this tutorial, we will teach you how to create a Jupyter book and deploy it online.
-This page is written in markdown, which also serves as an example.
-All the content on this website is licensed under a <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This tutorial only mentions the basics.
-For more advanced usage of Jupyter Book (e.g., using this special content block, editing the configuration file <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>, editing the table of content file <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>, etc.), check <a class="reference external" href="https://jupyterbook.org/en/stable/content/index.html">the Jupyter Book documentation</a> for more information.</p>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="ufc">
+<h1>UFC<a class="headerlink" href="#ufc" title="Permalink to this heading">#</a></h1>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/EaETjKmXOTo?si=uAeOYk-SXi9tKXkV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<section id="table-of-contents">
-<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="#pre"><span class="xref myst">Prerequisites</span></a></p></li>
-<li><p><a class="reference internal" href="#s1"><span class="xref myst">Step 1: Install conda</span></a></p></li>
-<li><p><a class="reference internal" href="#s2"><span class="xref myst">Step 2: Install Jupyter Book</span></a></p></li>
-<li><p><a class="reference internal" href="#s2"><span class="xref myst">Step 3: Create a new repository</span></a></p></li>
-<li><p><a class="reference internal" href="#s4"><span class="xref myst">Step 4: Build the book locally</span></a></p></li>
-<li><p><a class="reference internal" href="#s5"><span class="xref myst">Step 5: Deploy the book online</span></a></p></li>
-<li><p><a class="reference internal" href="#update"><span class="xref myst">Update the website content</span></a></p></li>
-<li><p><a class="reference internal" href="#ts"><span class="xref myst">Troubleshooting</span></a></p></li>
-</ul>
+<section id="inleiding">
+<h2>inleiding<a class="headerlink" href="#inleiding" title="Permalink to this heading">#</a></h2>
+<p>In de wereld van Mixed Martial Arts (MMA) wordt succes bepaald door een combinatie van fysieke dominantie, technische vaardigheid en mentale hardheid (UFC, 2021). Vechters als Islam Makhachev, Jon Jones en Khabib hebben in recente jaren de UFC gedomineerd, niet alleen dankzij hun kracht of lengte, maar door een uitgebalanceerde beheersing van zowel strategie als mentale weerstand (Tapology, z.d.). De UFC – ’s werelds grootste MMA-organisatie – verzamelt al decennia uitgebreide statistieken over haar gevechten. Dit opent de deur voor data-gedreven analyse naar de kernvraag: wat maakt een UFC-vechter succesvol?</p>
+<p>In dit project analyseren we ruim 6.000 gevechten uit twee Kaggle-datasets, waarin zowel fysieke kenmerken als technische prestaties van vechters gedocumenteerd zijn. Net als in andere topsporten maken we een onderscheid tussen lichamelijke (niet-trainbare) eigenschappen en technisch-prestatiegerichte (trainbare) vaardigheden.</p>
+<p>Niet-trainbare kenmerken omvatten factoren zoals leeftijd, lichaamslengte en reach — eigenschappen die bij aanvang van een carrière grotendeels vastliggen. Trainbare vaardigheden daarentegen, zoals strike accuracy, takedown accuracy en submission attempts, weerspiegelen het resultaat van intensieve training en strategische keuzes.</p>
+<p>Door deze factoren afzonderlijk en in samenhang te analyseren, en de data per gevecht én per gewichtsklasse te structureren, hopen we waardevolle inzichten te bieden voor coaches, analisten en vechters. De resultaten worden gepresenteerd aan de hand van statistieken, visualisaties en reflectie per perspectief. In de onderzoek wordt alleen gekeken naar de mannelijke vechters.</p>
 </section>
-<section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
-<p><a name="pre"></a></p>
-<p>Please make sure you have all the prerequisites ready before continuing this tutorial.</p>
+<section id="dataset-preprocessing">
+<h2>Dataset preprocessing<a class="headerlink" href="#dataset-preprocessing" title="Permalink to this heading">#</a></h2>
+<p>De analyse focust op twee hoofdtypen variabelen:</p>
+<p>Lichamelijke kenmerken: dingen die relatief vaststaan, zoals leeftijd, lengte en reach</p>
+<p>Trainbare prestatiekenmerken: dingen die beïnvloed kunnen worden door training, zoals strike accuracy, takedown accuracy en submission attempts</p>
+<p>We kijken dus hoe deze eigenschappen samenhangen met de uitkomst van een gevecht (wie wint).</p>
+<p>Om dit mogelijk te maken combineren we twee datasets van Kaggle:</p>
+<p>data.csv (Rajeevw, 2019): bevat gedetailleerde statistieken per vechter en per gevecht (zoals lengte, strike accuracy, etc.)</p>
+<p>ufc-master.csv (Mdabbert, 2021): bevat aanvullende informatie, zoals namen, odds en achtergrondgegevens van vechters</p>
+<p>Omdat geen van deze datasets volledig is, is het combineren ervan essentieel om een vollediger beeld te krijgen.</p>
+<p>Vorm</p>
+<p>🔄 STAP 1 – Inladen van de datasets</p>
+<p>De twee CSV-bestanden worden ingelezen als aparte pandas DataFrames (df1 en df2).</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df1 = pd.read_csv(“data.csv”)</p>
+<p>df2 = pd.read_csv(“ufc-master.csv”)</p>
+<p>Deze twee DataFrames vormen de basis van het preprocessingproces.</p>
+<p>Vorm</p>
+<p>🧱 STAP 2 – Harmoniseren van kolomnamen</p>
+<p>Om datasets te kunnen samenvoegen, moeten de kolommen die je gebruikt om te koppelen dezelfde naam hebben.</p>
+<p>In data.csv heten de kolommen met vechtersnamen: R_fighter en B_fighter</p>
+<p>In ufc-master.csv heten ze: RedFighter en BlueFighter</p>
+<p>Daarom hernoemen we de kolommen in df2:</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df2 = df2.rename(columns={</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;RedFighter&#39;: &#39;R_fighter&#39;, 
+
+&#39;BlueFighter&#39;: &#39;B_fighter&#39; 
+</pre></div>
+</div>
+<p>})</p>
+<p>Zo hebben beide datasets dezelfde naamgeving voor de vechters, wat noodzakelijk is voor de merge in de volgende stap.</p>
+<p>Vorm</p>
+<p>🔗 STAP 3 – Combineren van de datasets</p>
+<p>We combineren beide datasets op de kolommen R_fighter en B_fighter met een inner join.</p>
+<p>Hierdoor blijven alleen de gevechten over die in beide datasets voorkomen, waardoor we meer complete gegevens per gevecht hebben.</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df_merged = pd.merge(df1, df2, on=[‘R_fighter’, ‘B_fighter’], how=’inner’)</p>
+<p>De datumkolom wordt genegeerd omdat die vaak ontbreekt of inconsistent is, en we analyseren vooral de eigenschappen van vechters – niet het tijdstip van het gevecht.</p>
+<p>Vorm</p>
+<p>4 – Selecteren van relevante kolommen</p>
+<p>We selecteren alleen de kolommen die relevant zijn voor jouw analyse:</p>
+<p>Perspectief 1 – Lichamelijke kenmerken:</p>
+<p>Leeftijd (R_age, B_age)</p>
+<p>Lengte (R_Height_cms, B_Height_cms)</p>
+<p>Reach (R_Reach_cms, B_Reach_cms)</p>
+<p>Perspectief 2 – Trainbare eigenschappen:</p>
+<p>Strike accuracy (R_avg_SIG_STR_pct, B_avg_SIG_STR_pct)</p>
+<p>Takedown accuracy (R_avg_TD_pct, B_avg_TD_pct)</p>
+<p>Submission attempts (R_avg_SUB_ATT, B_avg_SUB_ATT)</p>
+<p>Daarnaast nemen we:</p>
+<p>weight_class: om te kunnen groeperen of filteren per gewichtsklasse</p>
+<p>Winner_x: de winnaar van het gevecht (uit df1)</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>relevant_columns = […]</p>
+<p>df_clean = df_merged[relevant_columns].copy()</p>
+<p>Vorm</p>
+<p>5 – Schoonmaken van de data</p>
+<p>Om ruis en fouten in je analyse te vermijden:</p>
+<p>Verwijderen we rijen met onbekende of onduidelijke waarden zoals “Unknown”, “?”, “unk”, enzovoort.</p>
+<p>Verwijderen we rijen met lege cellen (NaN)</p>
+<p>Sluiten we Catchweight-gevechten uit, omdat die buiten de normale gewichtsklassen vallen</p>
+<p>Verwijderen we vrouwelijke gewichtsklassen (zoals WomenFlyweight), zodat je dataset alleen mannelijke gevechten bevat</p>
+<p>Dit zorgt ervoor dat je alleen standaard man-tegen-man gevechten in reguliere gewichtsklassen overhoudt — dat is belangrijk om eerlijke vergelijkingen te maken.</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df_clean = df_clean.replace([…], <a class="reference external" href="http://pd.NA">pd.NA</a>).dropna()</p>
+<p>df_clean = df_clean[~df_clean[‘weight_class’].str.contains(‘Catch|Women’, case=False, na=False)]</p>
+<p>Vorm</p>
+<p>6 – Toevoegen van verschilvariabelen</p>
+<p>We berekenen het verschil tussen de Red- en Blue-vechter voor elke variabele:</p>
+<p>age_diff: verschil in leeftijd (R - B)</p>
+<p>height_diff: verschil in lengte</p>
+<p>reach_diff: verschil in reach</p>
+<p>strike_acc_diff: verschil in strike accuracy</p>
+<p>td_acc_diff: verschil in takedown accuracy</p>
+<p>sub_att_diff: verschil in submission attempts</p>
+<p>Dit maakt het eenvoudiger om relaties te analyseren tussen verschillen in eigenschappen en de kans om te winnen.</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df_clean[‘age_diff’] = df_clean[‘R_age’] - df_clean[‘B_age’]</p>
+<p>…</p>
+<p>Vorm</p>
+<p>7 – Opslaan van de opgeschoonde dataset</p>
+<p>De eindversie van je dataset wordt opgeslagen als een nieuwe CSV:</p>
+<p>python</p>
+<p>KopiërenBewerken</p>
+<p>df_clean.to_csv(“ufc_clean.csv”, index=False)</p>
+<p>Je kunt dit bestand nu gebruiken voor verdere analyse in Python, Excel, Power BI of andere tools.</p>
+<p>Vorm</p>
 <section id="register-a-github-account">
 <h3>Register a GitHub account<a class="headerlink" href="#register-a-github-account" title="Permalink to this heading">#</a></h3>
 <p>We will use <a class="reference external" href="https://pages.github.com">GitHub Pages</a> to deploy your compiled book, which means that you need to <a class="reference external" href="https://github.com/signup">register a GitHub account</a>.</p>
@@ -858,8 +933,8 @@ You may be able to find solutions on Stack Overflow or other people’s blogs.</
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inleiding">inleiding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-github-account">Register a GitHub account</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-personal-access-token">Create a GitHub personal access token</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment-to-run-jupyter-notebook">Install the environment to run Jupyter notebook</a></li>
