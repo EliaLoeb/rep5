@@ -403,15 +403,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inleiding">inleiding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-github-account">Register a GitHub account</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-personal-access-token">Create a GitHub personal access token</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment-to-run-jupyter-notebook">Install the environment to run Jupyter notebook</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git-and-git-bash-windows-only">Install git and Git Bash (Windows only)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#familiarize-yourself-with-git">Familiarize yourself with git</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-story-het-winnen-van-ufc-wedstrijden">Data story: Het winnen van UFC wedstrijden</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perspectief-1">Perspectief 1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-install-conda">Step 1: Install conda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-install-jupyter-book">Step 2: Install Jupyter Book</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-mac-and-linux-to-install-jupyter-book">For Mac and Linux to install Jupyter Book</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-windows-to-install-jupyter-book">For Windows to install Jupyter Book</a></li>
@@ -471,11 +467,7 @@ KopiërenBewerken<span class="w"> </span>
 <p>In data.csv heten de kolommen met vechtersnamen: R_fighter en B_fighter</p>
 <p>In ufc-master.csv heten ze: RedFighter en BlueFighter</p>
 <p>Daarom hernoemen we de kolommen in df2:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-<span class="nv">df2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df2.rename<span class="o">(</span><span class="nv">columns</span><span class="o">={</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">df2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df2.rename<span class="o">(</span><span class="nv">columns</span><span class="o">={</span><span class="w"> </span>
 
 <span class="w">    </span><span class="s1">&#39;RedFighter&#39;</span>:<span class="w"> </span><span class="s1">&#39;R_fighter&#39;</span>,<span class="w"> </span>
 
@@ -488,11 +480,7 @@ KopiërenBewerken<span class="w"> </span>
 <p>3 – Combineren van de datasets</p>
 <p>We combineren beide datasets op de kolommen R_fighter en B_fighter met een inner join.</p>
 <p>Hierdoor blijven alleen de gevechten over die in beide datasets voorkomen, waardoor we meer complete gegevens per gevecht hebben.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-<span class="nv">df_merged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd.merge<span class="o">(</span>df1,<span class="w"> </span>df2,<span class="w"> </span><span class="nv">on</span><span class="o">=[</span><span class="s1">&#39;R_fighter&#39;</span>,<span class="w"> </span><span class="s1">&#39;B_fighter&#39;</span><span class="o">]</span>,<span class="w"> </span><span class="nv">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="o">)</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">df_merged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pd.merge<span class="o">(</span>df1,<span class="w"> </span>df2,<span class="w"> </span><span class="nv">on</span><span class="o">=[</span><span class="s1">&#39;R_fighter&#39;</span>,<span class="w"> </span><span class="s1">&#39;B_fighter&#39;</span><span class="o">]</span>,<span class="w"> </span><span class="nv">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="o">)</span><span class="w"> </span>
 </pre></div>
 </div>
 <p>De datumkolom wordt genegeerd omdat die vaak ontbreekt of inconsistent is, en we analyseren vooral de eigenschappen van vechters – niet het tijdstip van het gevecht.</p>
@@ -509,11 +497,7 @@ KopiërenBewerken<span class="w"> </span>
 <p>Daarnaast nemen we:</p>
 <p>weight_class: om te kunnen groeperen of filteren per gewichtsklasse</p>
 <p>Winner_x: de winnaar van het gevecht (uit df1)</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-<span class="nv">relevant_columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">relevant_columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>
 
 <span class="nv">df_clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_merged<span class="o">[</span>relevant_columns<span class="o">]</span>.copy<span class="o">()</span><span class="w"> </span>
 </pre></div>
@@ -525,11 +509,7 @@ KopiërenBewerken<span class="w"> </span>
 <p>Sluiten we Catchweight-gevechten uit, omdat die buiten de normale gewichtsklassen vallen</p>
 <p>Verwijderen we vrouwelijke gewichtsklassen (zoals WomenFlyweight), zodat je dataset alleen mannelijke gevechten bevat</p>
 <p>Dit zorgt ervoor dat je alleen standaard man-tegen-man gevechten in reguliere gewichtsklassen overhoudt — dat is belangrijk om eerlijke vergelijkingen te maken.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-<span class="nv">df_clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_clean.replace<span class="o">([</span>...<span class="o">]</span>,<span class="w"> </span>pd.NA<span class="o">)</span>.dropna<span class="o">()</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">df_clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_clean.replace<span class="o">([</span>...<span class="o">]</span>,<span class="w"> </span>pd.NA<span class="o">)</span>.dropna<span class="o">()</span><span class="w"> </span>
 
 <span class="nv">df_clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_clean<span class="o">[</span>~df_clean<span class="o">[</span><span class="s1">&#39;weight_class&#39;</span><span class="o">]</span>.str.contains<span class="o">(</span><span class="s1">&#39;Catch|Women&#39;</span>,<span class="w"> </span><span class="k">case</span><span class="o">=</span>False,<span class="w"> </span><span class="nv">na</span><span class="o">=</span>False<span class="o">)]</span><span class="w"> </span>
 </pre></div>
@@ -543,64 +523,23 @@ KopiërenBewerken<span class="w"> </span>
 <p>td_acc_diff: verschil in takedown accuracy</p>
 <p>sub_att_diff: verschil in submission attempts</p>
 <p>Dit maakt het eenvoudiger om relaties te analyseren tussen verschillen in eigenschappen en de kans om te winnen.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-df_clean<span class="o">[</span><span class="s1">&#39;age_diff&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_clean<span class="o">[</span><span class="s1">&#39;R_age&#39;</span><span class="o">]</span><span class="w"> </span>-<span class="w"> </span>df_clean<span class="o">[</span><span class="s1">&#39;B_age&#39;</span><span class="o">]</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>df_clean<span class="o">[</span><span class="s1">&#39;age_diff&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>df_clean<span class="o">[</span><span class="s1">&#39;R_age&#39;</span><span class="o">]</span><span class="w"> </span>-<span class="w"> </span>df_clean<span class="o">[</span><span class="s1">&#39;B_age&#39;</span><span class="o">]</span><span class="w"> </span>
 
 ...<span class="w"> </span>
 </pre></div>
 </div>
 <p>7 – Opslaan van de opgeschoonde dataset</p>
 <p>De eindversie van je dataset wordt opgeslagen als een nieuwe CSV:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>
-
-KopiërenBewerken<span class="w"> </span>
-
-df_clean.to_csv<span class="o">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span>,<span class="w"> </span><span class="nv">index</span><span class="o">=</span>False<span class="o">)</span><span class="w"> </span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>df_clean.to_csv<span class="o">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span>,<span class="w"> </span><span class="nv">index</span><span class="o">=</span>False<span class="o">)</span><span class="w"> </span>
 </pre></div>
 </div>
 <p>Je kunt dit bestand nu gebruiken voor verdere analyse in Python, Excel, Power BI of andere tools.</p>
-<section id="register-a-github-account">
-<h3>Register a GitHub account<a class="headerlink" href="#register-a-github-account" title="Permalink to this heading">#</a></h3>
-<p>We will use <a class="reference external" href="https://pages.github.com">GitHub Pages</a> to deploy your compiled book, which means that you need to <a class="reference external" href="https://github.com/signup">register a GitHub account</a>.</p>
 </section>
-<section id="create-a-github-personal-access-token">
-<h3>Create a GitHub personal access token<a class="headerlink" href="#create-a-github-personal-access-token" title="Permalink to this heading">#</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can skip this step if you download the <a class="reference external" href="https://desktop.github.com/">GitHub Desktop</a> and set it up on your local machine.
-The GitHub Desktop will guide you through the setup process, and in this way, you do not have to create a personal access token.</p>
-</div>
-<p>GitHub has a new policy that you can no longer use your account password to push file changes.
-You must <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">create a personal access token</a> and use the token when pushing changes to a GitHub repository.
-To do so, go to <a class="reference external" href="https://github.com/settings/tokens">this page</a> to create a classic token (not the fine-grained token).
-You also need to give the token proper access permissions/scopes, as indicated in the following image:</p>
-<p><img alt="token_scope" src="../_images/token_scope.png" /></p>
-<p>You can also choose to <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github">use other authentication methods</a>, such as using SSH keys.</p>
-</section>
-<section id="install-the-environment-to-run-jupyter-notebook">
-<h3>Install the environment to run Jupyter notebook<a class="headerlink" href="#install-the-environment-to-run-jupyter-notebook" title="Permalink to this heading">#</a></h3>
-<p>We assume that you have installed the environment that can edit and run Jupyter Notebook files.
-If you have not done so, check the <a class="reference external" href="https://jupyter.org">Jupyter website</a> for how to install the user interface and environment.</p>
-</section>
-<section id="install-git-and-git-bash-windows-only">
-<h3>Install git and Git Bash (Windows only)<a class="headerlink" href="#install-git-and-git-bash-windows-only" title="Permalink to this heading">#</a></h3>
-<p>You need a terminal (e.g., <a class="reference external" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Z_shell">Zsh</a>) to work with Jupyter Book.
-If you are on Windows, install <a class="reference external" href="https://git-scm.com/">the git tool</a>, which comes with a terminal called <code class="docutils literal notranslate"><span class="pre">Git</span> <span class="pre">Bash</span></code>.
-If you are on Mac or Linux, the git tool is already installed, so you can just open the terminal and start typing commands.</p>
-</section>
-<section id="familiarize-yourself-with-git">
-<h3>Familiarize yourself with git<a class="headerlink" href="#familiarize-yourself-with-git" title="Permalink to this heading">#</a></h3>
-<p>You will need to use <code class="docutils literal notranslate"><span class="pre">git</span></code> to work with the GitHub Pages, which requires some basic understanding of using <code class="docutils literal notranslate"><span class="pre">git</span></code>.
-If you are new to this idea, check <a class="reference external" href="https://github.com/git-guides">the git guide</a>.
-Also, here is <a class="reference external" href="https://www.youtube.com/watch?v=USjZcfj8yxE">a 15-minute Git tutorial video</a> that covers what you need for this course.</p>
-</section>
-</section>
-<section id="step-1-install-conda">
-<h2>Step 1: Install conda<a class="headerlink" href="#step-1-install-conda" title="Permalink to this heading">#</a></h2>
+<section id="data-story-het-winnen-van-ufc-wedstrijden">
+<h2>Data story: Het winnen van UFC wedstrijden<a class="headerlink" href="#data-story-het-winnen-van-ufc-wedstrijden" title="Permalink to this heading">#</a></h2>
 <p><a name="s1"></a></p>
+<section id="perspectief-1">
+<h3>Perspectief 1<a class="headerlink" href="#perspectief-1" title="Permalink to this heading">#</a></h3>
 <p>The first step is installing the conda virtual environment using <a class="reference external" href="https://docs.conda.io/en/main/miniconda.html">miniconda</a> or <a class="reference external" href="https://www.anaconda.com/">anaconda</a>.
 Pick either one of them and follow the instructions on the website to install conda so that you can use the <code class="docutils literal notranslate"><span class="pre">conda</span></code> command on your terminal.</p>
 <div class="admonition important">
@@ -627,6 +566,7 @@ If you already have the conda environment ready on your machine, you can skip th
 When running the installation, <strong>make sure that you need to tick the box to allow the installer to set the system environment path for conda</strong>.
 Otherwise, your terminal will not be able to find the conda command.</p>
 </div>
+</section>
 </section>
 <section id="step-2-install-jupyter-book">
 <h2>Step 2: Install Jupyter Book<a class="headerlink" href="#step-2-install-jupyter-book" title="Permalink to this heading">#</a></h2>
@@ -959,15 +899,11 @@ You may be able to find solutions on Stack Overflow or other people’s blogs.</
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inleiding">inleiding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-a-github-account">Register a GitHub account</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-personal-access-token">Create a GitHub personal access token</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-environment-to-run-jupyter-notebook">Install the environment to run Jupyter notebook</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-git-and-git-bash-windows-only">Install git and Git Bash (Windows only)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#familiarize-yourself-with-git">Familiarize yourself with git</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing">Dataset preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-story-het-winnen-van-ufc-wedstrijden">Data story: Het winnen van UFC wedstrijden</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perspectief-1">Perspectief 1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-install-conda">Step 1: Install conda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-install-jupyter-book">Step 2: Install Jupyter Book</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-mac-and-linux-to-install-jupyter-book">For Mac and Linux to install Jupyter Book</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-windows-to-install-jupyter-book">For Windows to install Jupyter Book</a></li>
