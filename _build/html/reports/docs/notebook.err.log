@@ -36,11 +36,12 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
+import pandas as pd
 # Stap 1: Laad de datasets 
 
-df1 = pd.read_csv("data.csv")           # Rajeevw (prestaties en fysieke data) 
+df1 = pd.read_csv("data.csv") # Rajeevw (prestaties en fysieke data) 
 
-df2 = pd.read_csv("ufc-master.csv")     # Mdabbert (aanvullende info) 
+df2 = pd.read_csv("ufc-master.csv") # Mdabbert (aanvullende info) 
 
  
 
@@ -48,9 +49,9 @@ df2 = pd.read_csv("ufc-master.csv")     # Mdabbert (aanvullende info)
 
 df2 = df2.rename(columns={ 
 
-    'RedFighter': 'R_fighter', 
+'RedFighter': 'R_fighter', 
 
-    'BlueFighter': 'B_fighter' 
+'BlueFighter': 'B_fighter' 
 
 }) 
 
@@ -66,21 +67,21 @@ df_merged = pd.merge(df1, df2, on=['R_fighter', 'B_fighter'], how='inner')
 
 relevant_columns = [ 
 
-    'R_age', 'B_age', 
+'R_age', 'B_age', 
 
-    'R_Height_cms', 'B_Height_cms', 
+'R_Height_cms', 'B_Height_cms', 
 
-    'R_Reach_cms', 'B_Reach_cms', 
+'R_Reach_cms', 'B_Reach_cms', 
 
-    'R_avg_SIG_STR_pct', 'B_avg_SIG_STR_pct', 
+'R_avg_SIG_STR_pct', 'B_avg_SIG_STR_pct', 
 
-    'R_avg_TD_pct', 'B_avg_TD_pct', 
+'R_avg_TD_pct', 'B_avg_TD_pct', 
 
-    'R_avg_SUB_ATT', 'B_avg_SUB_ATT', 
+'R_avg_SUB_ATT', 'B_avg_SUB_ATT', 
 
-    'weight_class', 
+'weight_class', 
 
-    'Winner_x' 
+'Winner_x' 
 
 ] 
 
@@ -140,9 +141,48 @@ print(df_clean.head(5))
 ------------------
 
 
-  [36mCell[39m[36m [39m[32mIn[2][39m[32m, line 3[39m
-[31m    [39m[31mdf1 = pd.read_csv("data.csv")           # Rajeevw (prestaties en fysieke data)[39m
-                                  ^
-[31mSyntaxError[39m[31m:[39m invalid non-printable character U+202F
+[31m---------------------------------------------------------------[39m
+[31mAttributeError[39m                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 68[39m
+[32m     62[39m df_clean = df_clean.dropna() 
+[32m     66[39m [38;5;66;03m# Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen [39;00m
+[32m---> [39m[32m68[39m df_clean = df_clean[~[43mdf_clean[49m[43m[[49m[33;43m'[39;49m[33;43mweight_class[39;49m[33;43m'[39;49m[43m][49m[43m.[49m[43mstr[49m.contains([33m'[39m[33mCatch|Women[39m[33m'[39m, case=[38;5;28;01mFalse[39;00m, na=[38;5;28;01mFalse[39;00m)] 
+[32m     72[39m [38;5;66;03m# Stap 8: Hernoem 'Winner_x' naar 'Winner' [39;00m
+[32m     74[39m df_clean = df_clean.rename(columns={[33m'[39m[33mWinner_x[39m[33m'[39m: [33m'[39m[33mWinner[39m[33m'[39m}) 
 
+[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\generic.py:6318[39m, in [36mNDFrame.__getattr__[39m[34m(self, name)[39m
+[32m   6311[39m [38;5;28;01mif[39;00m (
+[32m   6312[39m     name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._internal_names_set
+[32m   6313[39m     [38;5;129;01mand[39;00m name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._metadata
+[32m   6314[39m     [38;5;129;01mand[39;00m name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [38;5;28mself[39m._accessors
+[32m   6315[39m     [38;5;129;01mand[39;00m [38;5;28mself[39m._info_axis._can_hold_identifiers_and_holds_name(name)
+[32m   6316[39m ):
+[32m   6317[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[name]
+[32m-> [39m[32m6318[39m [38;5;28;01mreturn[39;00m [38;5;28;43mobject[39;49m[43m.[49m[34;43m__getattribute__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43mname[49m[43m)[49m
+
+[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\accessor.py:224[39m, in [36mCachedAccessor.__get__[39m[34m(self, obj, cls)[39m
+[32m    221[39m [38;5;28;01mif[39;00m obj [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m    222[39m     [38;5;66;03m# we're accessing the attribute of the class, i.e., Dataset.geo[39;00m
+[32m    223[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m._accessor
+[32m--> [39m[32m224[39m accessor_obj = [38;5;28;43mself[39;49m[43m.[49m[43m_accessor[49m[43m([49m[43mobj[49m[43m)[49m
+[32m    225[39m [38;5;66;03m# Replace the property with the accessor object. Inspired by:[39;00m
+[32m    226[39m [38;5;66;03m# https://www.pydanny.com/cached-property.html[39;00m
+[32m    227[39m [38;5;66;03m# We need to use object.__setattr__ because we overwrite __setattr__ on[39;00m
+[32m    228[39m [38;5;66;03m# NDFrame[39;00m
+[32m    229[39m [38;5;28mobject[39m.[34m__setattr__[39m(obj, [38;5;28mself[39m._name, accessor_obj)
+
+[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:194[39m, in [36mStringMethods.__init__[39m[34m(self, data)[39m
+[32m    191[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m__init__[39m([38;5;28mself[39m, data) -> [38;5;28;01mNone[39;00m:
+[32m    192[39m     [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpandas[39;00m[34;01m.[39;00m[34;01mcore[39;00m[34;01m.[39;00m[34;01marrays[39;00m[34;01m.[39;00m[34;01mstring_[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m StringDtype
+[32m--> [39m[32m194[39m     [38;5;28mself[39m._inferred_dtype = [38;5;28;43mself[39;49m[43m.[49m[43m_validate[49m[43m([49m[43mdata[49m[43m)[49m
+[32m    195[39m     [38;5;28mself[39m._is_categorical = [38;5;28misinstance[39m(data.dtype, CategoricalDtype)
+[32m    196[39m     [38;5;28mself[39m._is_string = [38;5;28misinstance[39m(data.dtype, StringDtype)
+
+[36mFile [39m[32m~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:248[39m, in [36mStringMethods._validate[39m[34m(data)[39m
+[32m    245[39m inferred_dtype = lib.infer_dtype(values, skipna=[38;5;28;01mTrue[39;00m)
+[32m    247[39m [38;5;28;01mif[39;00m inferred_dtype [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m allowed_types:
+[32m--> [39m[32m248[39m     [38;5;28;01mraise[39;00m [38;5;167;01mAttributeError[39;00m([33m"[39m[33mCan only use .str accessor with string values![39m[33m"[39m)
+[32m    249[39m [38;5;28;01mreturn[39;00m inferred_dtype
+
+[31mAttributeError[39m: Can only use .str accessor with string values!
 
