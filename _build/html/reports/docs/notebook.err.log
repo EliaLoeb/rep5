@@ -1,0 +1,148 @@
+Traceback (most recent call last):
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+    ~~~~~~~~~^
+        nb,
+        ^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\nbclient\client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Gebruiker\miniconda3\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+        cell, index, execution_count=self.code_cells_executed + 1
+    )
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Gebruiker\miniconda3\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Stap 1: Laad de datasets 
+
+df1 = pd.read_csv("data.csv")           # Rajeevw (prestaties en fysieke data) 
+
+df2 = pd.read_csv("ufc-master.csv")     # Mdabbert (aanvullende info) 
+
+ 
+
+# Stap 2: Harmoniseer kolomnamen in df2 
+
+df2 = df2.rename(columns={ 
+
+    'RedFighter': 'R_fighter', 
+
+    'BlueFighter': 'B_fighter' 
+
+}) 
+
+ 
+
+# Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd) 
+
+df_merged = pd.merge(df1, df2, on=['R_fighter', 'B_fighter'], how='inner') 
+
+ 
+
+# Stap 4: Selecteer relevante kolommen 
+
+relevant_columns = [ 
+
+    'R_age', 'B_age', 
+
+    'R_Height_cms', 'B_Height_cms', 
+
+    'R_Reach_cms', 'B_Reach_cms', 
+
+    'R_avg_SIG_STR_pct', 'B_avg_SIG_STR_pct', 
+
+    'R_avg_TD_pct', 'B_avg_TD_pct', 
+
+    'R_avg_SUB_ATT', 'B_avg_SUB_ATT', 
+
+    'weight_class', 
+
+    'Winner_x' 
+
+] 
+
+df_clean = df_merged[relevant_columns].copy() 
+
+ 
+
+# Stap 5: Verwijder onbekende waarden 
+
+df_clean = df_clean.replace(['Unknown', 'Unclear', 'unk', 'UNK', '?'], pd.NA) 
+
+ 
+
+# Stap 6: Verwijder rijen met ontbrekende waarden 
+
+df_clean = df_clean.dropna() 
+
+ 
+
+# Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen 
+
+df_clean = df_clean[~df_clean['weight_class'].str.contains('Catch|Women', case=False, na=False)] 
+
+ 
+
+# Stap 8: Hernoem 'Winner_x' naar 'Winner' 
+
+df_clean = df_clean.rename(columns={'Winner_x': 'Winner'}) 
+
+ 
+
+# Stap 9: Voeg verschilvariabelen toe 
+
+df_clean['age_diff'] = df_clean['R_age'] - df_clean['B_age'] 
+
+df_clean['height_diff'] = df_clean['R_Height_cms'] - df_clean['B_Height_cms'] 
+
+df_clean['reach_diff'] = df_clean['R_Reach_cms'] - df_clean['B_Reach_cms'] 
+
+df_clean['strike_acc_diff'] = df_clean['R_avg_SIG_STR_pct'] - df_clean['B_avg_SIG_STR_pct'] 
+
+df_clean['td_acc_diff'] = df_clean['R_avg_TD_pct'] - df_clean['B_avg_TD_pct'] 
+
+df_clean['sub_att_diff'] = df_clean['R_avg_SUB_ATT'] - df_clean['B_avg_SUB_ATT'] 
+
+ 
+
+# Stap 10: Opslaan als nieuwe CSV 
+
+df_clean.to_csv("ufc_clean.csv", index=False) 
+
+ 
+
+# Stap 11: Eerste 5 rijen laten zien 
+
+print(df_clean.head(5)) 
+------------------
+
+
+  [36mCell[39m[36m [39m[32mIn[2][39m[32m, line 3[39m
+[31m    [39m[31mdf1 = pd.read_csv("data.csv")           # Rajeevw (prestaties en fysieke data)[39m
+                                  ^
+[31mSyntaxError[39m[31m:[39m invalid non-printable character U+202F
+
+

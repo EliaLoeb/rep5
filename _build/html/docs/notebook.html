@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Example Notebook &#8212; Jupyter Book Template</title>
+    <title>Data preprocessing &#8212; Jupyter Book Template</title>
   
   
   
@@ -173,7 +173,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example Notebook</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data preprocessing</a></li>
 </ul>
 
     </div>
@@ -390,7 +390,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Example Notebook</h1>
+    <h1>Data preprocessing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -401,7 +401,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot data</a></li>
 </ul>
             </nav>
         </div>
@@ -413,13 +412,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="example-notebook">
-<h1>Example Notebook<a class="headerlink" href="#example-notebook" title="Permalink to this heading">#</a></h1>
-<p>(testestestestes)</p>
-<p>testestes.
-This means that you can include code blocks and their outputs in your book.
-In this notebook, we show some examples of loading and plotting data.
-Check <a class="reference external" href="https://jupyterbook.org/en/stable/content/executable/index.html">this documentation</a> about how to write executable content.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preprocessing">
+<h1>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this heading">#</a></h1>
+<p>De volgende code is gebruikt om de datasets op te schonen, te filteren en samen te voegen.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import packages</span>
@@ -435,183 +430,117 @@ Check <a class="reference external" href="https://jupyterbook.org/en/stable/cont
 <p>You can put your data at the same directory as the notebook file and then use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to load the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the Iris flower dataset using pandas</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;iris_data.csv&quot;</span><span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stap 1: Laad de datasets </span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>           <span class="c1"># Rajeevw (prestaties en fysieke data) </span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>sepal_length</th>
-      <th>sepal_width</th>
-      <th>petal_length</th>
-      <th>petal_width</th>
-      <th>species</th>
-      <th>species_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5.1</td>
-      <td>3.5</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>setosa</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4.9</td>
-      <td>3.0</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>setosa</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>1.3</td>
-      <td>0.2</td>
-      <td>setosa</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.6</td>
-      <td>3.1</td>
-      <td>1.5</td>
-      <td>0.2</td>
-      <td>setosa</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5.0</td>
-      <td>3.6</td>
-      <td>1.4</td>
-      <td>0.2</td>
-      <td>setosa</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>145</th>
-      <td>6.7</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.3</td>
-      <td>virginica</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>6.3</td>
-      <td>2.5</td>
-      <td>5.0</td>
-      <td>1.9</td>
-      <td>virginica</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>6.5</td>
-      <td>3.0</td>
-      <td>5.2</td>
-      <td>2.0</td>
-      <td>virginica</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>148</th>
-      <td>6.2</td>
-      <td>3.4</td>
-      <td>5.4</td>
-      <td>2.3</td>
-      <td>virginica</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>149</th>
-      <td>5.9</td>
-      <td>3.0</td>
-      <td>5.1</td>
-      <td>1.8</td>
-      <td>virginica</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-<p>150 rows × 6 columns</p>
-</div></div></div>
-</div>
-</section>
-<section id="plot-data">
-<h2>Plot data<a class="headerlink" href="#plot-data" title="Permalink to this heading">#</a></h2>
-<p>We set the repository in a way that you can use <a class="reference external" href="https://plotly.com/python/">Plotly</a> for interactive visualizations.
-For more information, check <a class="reference external" href="https://jupyterbook.org/en/stable/interactive/interactive.html">this documentation</a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Iris dataset using Plotly</span>
-<span class="n">g1</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span><span class="n">df</span><span class="p">,</span>
-                   <span class="n">x</span><span class="o">=</span><span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span>
-                   <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span>
-                   <span class="n">z</span><span class="o">=</span><span class="s2">&quot;petal_width&quot;</span><span class="p">,</span>
-                   <span class="n">color</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">,</span>
-                   <span class="n">size</span><span class="o">=</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span>
-                   <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
-                   <span class="n">size_max</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                   <span class="n">height</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
-<span class="n">g1</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc-master.csv&quot;</span><span class="p">)</span>     <span class="c1"># Mdabbert (aanvullende info) </span>
+
+ 
+
+<span class="c1"># Stap 2: Harmoniseer kolomnamen in df2 </span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> 
+
+    <span class="s1">&#39;RedFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;BlueFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;B_fighter&#39;</span> 
+
+<span class="p">})</span> 
+
+ 
+
+<span class="c1"># Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd) </span>
+
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> <span class="s1">&#39;B_fighter&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 4: Selecteer relevante kolommen </span>
+
+<span class="n">relevant_columns</span> <span class="o">=</span> <span class="p">[</span> 
+
+    <span class="s1">&#39;R_age&#39;</span><span class="p">,</span> <span class="s1">&#39;B_age&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;R_Height_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Height_cms&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> 
+
+    <span class="s1">&#39;Winner_x&#39;</span> 
+
+<span class="p">]</span> 
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="n">relevant_columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+
+ 
+
+<span class="c1"># Stap 5: Verwijder onbekende waarden </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;Unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;Unclear&#39;</span><span class="p">,</span> <span class="s1">&#39;unk&#39;</span><span class="p">,</span> <span class="s1">&#39;UNK&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 6: Verwijder rijen met ontbrekende waarden </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+
+ 
+
+<span class="c1"># Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="o">~</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Catch|Women&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> 
+
+ 
+
+<span class="c1"># Stap 8: Hernoem &#39;Winner_x&#39; naar &#39;Winner&#39; </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winner_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Winner&#39;</span><span class="p">})</span> 
+
+ 
+
+<span class="c1"># Stap 9: Voeg verschilvariabelen toe </span>
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;age_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_age&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_age&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;height_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Height_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Height_cms&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;reach_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;strike_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;td_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sub_att_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">]</span> 
+
+ 
+
+<span class="c1"># Stap 10: Opslaan als nieuwe CSV </span>
+
+<span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 11: Eerste 5 rijen laten zien </span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-</div>
-</div>
-<p>You can also plot the data using static visualizations, such as the <a class="reference external" href="https://seaborn.pydata.org/#">seaborn</a> library.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Iris dataset using seaborn</span>
-<span class="n">g2</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;species_id&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-                  <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">)</span>
-<span class="n">g2</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>           <span class="c1"># Rajeevw (prestaties en fysieke data)</span>
+                                  <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid non-printable character U+202F
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x2a771a62a50&gt;
-</pre></div>
-</div>
-<img alt="../_images/be892434d5008a7717eb090e28ac2c7dfc94e3e5ab02fd3142052ca0eccb256f.png" src="../_images/be892434d5008a7717eb090e28ac2c7dfc94e3e5ab02fd3142052ca0eccb256f.png" />
 </div>
 </div>
 </section>
@@ -673,7 +602,6 @@ For more information, check <a class="reference external" href="https://jupyterb
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot data</a></li>
 </ul>
   </nav></div>
 
