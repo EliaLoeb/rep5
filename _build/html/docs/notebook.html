@@ -408,106 +408,168 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># Stap 1: Laad de datasets </span>
 
-<span class="c1"># Stap 1: Laad de datasets</span>
-<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>           <span class="c1"># Rajeevw (prestaties en fysieke data)</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc-master.csv&quot;</span><span class="p">)</span>     <span class="c1"># Mdabbert (aanvullende info)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span> <span class="c1"># Rajeevw (prestaties en fysieke data) </span>
 
-<span class="c1"># Stap 2: Harmoniseer kolomnamen in df2</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;RedFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;BlueFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;B_fighter&#39;</span>
-<span class="p">})</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;ufc-master.csv&quot;</span><span class="p">)</span> <span class="c1"># Mdabbert (aanvullende info) </span>
 
-<span class="c1"># Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)</span>
-<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> <span class="s1">&#39;B_fighter&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+ 
 
-<span class="c1"># Stap 4: Selecteer relevante kolommen</span>
-<span class="n">relevant_columns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;R_age&#39;</span><span class="p">,</span> <span class="s1">&#39;B_age&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;R_Height_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Height_cms&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;weight_class&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Winner_x&#39;</span>
-<span class="p">]</span>
-<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="n">relevant_columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># Stap 2: Harmoniseer kolomnamen in df2 </span>
 
-<span class="c1"># Stap 5: Verwijder onbekende waarden</span>
-<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;Unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;Unclear&#39;</span><span class="p">,</span> <span class="s1">&#39;unk&#39;</span><span class="p">,</span> <span class="s1">&#39;UNK&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> 
 
-<span class="c1"># Stap 6: Verwijder rijen met ontbrekende waarden</span>
-<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="s1">&#39;RedFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> 
 
-<span class="c1"># Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen</span>
-<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="o">~</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Catch|Women&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="s1">&#39;BlueFighter&#39;</span><span class="p">:</span> <span class="s1">&#39;B_fighter&#39;</span> 
 
-<span class="c1"># Stap 8: Hernoem &#39;Winner_x&#39; naar &#39;Winner&#39;</span>
-<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winner_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Winner&#39;</span><span class="p">})</span>
+<span class="p">})</span> 
 
-<span class="c1"># Stap 9: Voeg verschilvariabelen toe</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;age_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_age&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_age&#39;</span><span class="p">]</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;height_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Height_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Height_cms&#39;</span><span class="p">]</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;reach_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">]</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;strike_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">]</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;td_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">]</span>
-<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sub_att_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">]</span>
+ 
 
-<span class="c1"># Stap 10: Opslaan als nieuwe CSV</span>
-<span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd) </span>
 
-<span class="c1"># Stap 11: Eerste 5 rijen laten zien</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> <span class="s1">&#39;B_fighter&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 4: Selecteer relevante kolommen </span>
+
+<span class="n">relevant_columns</span> <span class="o">=</span> <span class="p">[</span> 
+
+<span class="s1">&#39;R_age&#39;</span><span class="p">,</span> <span class="s1">&#39;B_age&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;R_Height_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Height_cms&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">,</span> <span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">,</span> <span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;weight_class&#39;</span><span class="p">,</span> 
+
+<span class="s1">&#39;Winner_x&#39;</span> 
+
+<span class="p">]</span> 
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="n">relevant_columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+
+ 
+
+<span class="c1"># Stap 5: Verwijder onbekende waarden </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;Unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;Unclear&#39;</span><span class="p">,</span> <span class="s1">&#39;unk&#39;</span><span class="p">,</span> <span class="s1">&#39;UNK&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 6: Verwijder rijen met ontbrekende waarden </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+
+ 
+
+<span class="c1"># Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="o">~</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Catch|Women&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> 
+
+ 
+
+<span class="c1"># Stap 8: Hernoem &#39;Winner_x&#39; naar &#39;Winner&#39; </span>
+
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winner_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Winner&#39;</span><span class="p">})</span> 
+
+ 
+
+<span class="c1"># Stap 9: Voeg verschilvariabelen toe </span>
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;age_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_age&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_age&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;height_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Height_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Height_cms&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;reach_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_Reach_cms&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_Reach_cms&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;strike_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SIG_STR_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SIG_STR_pct&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;td_acc_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_TD_pct&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_TD_pct&#39;</span><span class="p">]</span> 
+
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sub_att_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;R_avg_SUB_ATT&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;B_avg_SUB_ATT&#39;</span><span class="p">]</span> 
+
+ 
+
+<span class="c1"># Stap 10: Opslaan als nieuwe CSV </span>
+
+<span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+
+ 
+
+<span class="c1"># Stap 11: Eerste 5 rijen laten zien </span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Gebruiker\AppData\Local\Temp\ipykernel_23344\1003291079.py:4: DtypeWarning: Columns (10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,141,142,143) have mixed types. Specify dtype option on import or set low_memory=False.
+  df1 = pd.read_csv(&quot;data.csv&quot;) # Rajeevw (prestaties en fysieke data)
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">36</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="c1"># Stap 7: Verwijder catchweight- én vrouwelijke gewichtsklassen</span>
-<span class="ne">---&gt; </span><span class="mi">36</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="o">~</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;weight_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Catch|Women&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="c1"># Stap 8: Hernoem &#39;Winner_x&#39; naar &#39;Winner&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Winner_x&#39;</span><span class="p">:</span> <span class="s1">&#39;Winner&#39;</span><span class="p">})</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
+<span class="nn">~\AppData\Local\Temp\ipykernel_23344\1003291079.py</span> in <span class="ni">?</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> 
+<span class="g g-Whitespace">     </span><span class="mi">21</span> 
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> 
+<span class="ne">---&gt; </span><span class="mi">24</span> <span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;R_fighter&#39;</span><span class="p">,</span> <span class="s1">&#39;B_fighter&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> 
+<span class="g g-Whitespace">     </span><span class="mi">26</span> 
+<span class="g g-Whitespace">     </span><span class="mi">27</span> 
 
-<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\generic.py:6318,</span> in <span class="ni">NDFrame.__getattr__</span><span class="nt">(self, name)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6311</span> <span class="k">if</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">6312</span>     <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_names_set</span>
-<span class="g g-Whitespace">   </span><span class="mi">6313</span>     <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
-<span class="g g-Whitespace">   </span><span class="mi">6314</span>     <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessors</span>
-<span class="g g-Whitespace">   </span><span class="mi">6315</span>     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_axis</span><span class="o">.</span><span class="n">_can_hold_identifiers_and_holds_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">6316</span> <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">6317</span>     <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="ne">-&gt; </span><span class="mi">6318</span> <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>             <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>             <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">170</span>         <span class="n">op</span> <span class="o">=</span> <span class="n">_MergeOperation</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>             <span class="n">left_df</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">right_df</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span>             <span class="n">how</span><span class="o">=</span><span class="n">how</span><span class="p">,</span>
 
-<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\accessor.py:224,</span> in <span class="ni">CachedAccessor.__get__</span><span class="nt">(self, obj, cls)</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="c1"># we&#39;re accessing the attribute of the class, i.e., Dataset.geo</span>
-<span class="g g-Whitespace">    </span><span class="mi">223</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessor</span>
-<span class="ne">--&gt; </span><span class="mi">224</span> <span class="n">accessor_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_accessor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="c1"># Replace the property with the accessor object. Inspired by:</span>
-<span class="g g-Whitespace">    </span><span class="mi">226</span> <span class="c1"># https://www.pydanny.com/cached-property.html</span>
-<span class="g g-Whitespace">    </span><span class="mi">227</span> <span class="c1"># We need to use object.__setattr__ because we overwrite __setattr__ on</span>
-<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="c1"># NDFrame</span>
-<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">accessor_obj</span><span class="p">)</span>
+<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(self, left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, indicator, validate)</span>
+<span class="g g-Whitespace">    </span><span class="mi">790</span>             <span class="bp">self</span><span class="o">.</span><span class="n">right_join_keys</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">791</span>             <span class="bp">self</span><span class="o">.</span><span class="n">join_names</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">792</span>             <span class="n">left_drop</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">793</span>             <span class="n">right_drop</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">794</span>         <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_merge_keys</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">795</span> 
+<span class="g g-Whitespace">    </span><span class="mi">796</span>         <span class="k">if</span> <span class="n">left_drop</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">797</span>             <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">_drop_labels_or_levels</span><span class="p">(</span><span class="n">left_drop</span><span class="p">)</span>
 
-<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:194,</span> in <span class="ni">StringMethods.__init__</span><span class="nt">(self, data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">191</span> <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">192</span>     <span class="kn">from</span><span class="w"> </span><span class="nn">pandas.core.arrays.string_</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringDtype</span>
-<span class="ne">--&gt; </span><span class="mi">194</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_inferred_dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_categorical</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">CategoricalDtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_is_string</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">StringDtype</span><span class="p">)</span>
+<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py</span> in <span class="ni">?</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1293</span>                         <span class="c1"># Then we&#39;re either Hashable or a wrong-length arraylike,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1294</span>                         <span class="c1">#  the latter of which will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">1295</span>                         <span class="n">rk</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">rk</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1296</span>                         <span class="k">if</span> <span class="n">rk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1297</span>                             <span class="n">right_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">_get_label_or_level_values</span><span class="p">(</span><span class="n">rk</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1298</span>                         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1299</span>                             <span class="c1"># work-around for merge_asof(right_index=True)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1300</span>                             <span class="n">right_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">_values</span><span class="p">)</span>
 
-<span class="nn">File ~\miniconda3\Lib\site-packages\pandas\core\strings\accessor.py:248,</span> in <span class="ni">StringMethods._validate</span><span class="nt">(data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="n">inferred_dtype</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">infer_dtype</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="k">if</span> <span class="n">inferred_dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_types</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">248</span>     <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Can only use .str accessor with string values!&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span> <span class="k">return</span> <span class="n">inferred_dtype</span>
+<span class="nn">~\miniconda3\Lib\site-packages\pandas\core\generic.py</span> in <span class="ni">?</span><span class="nt">(self, key, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1907</span>             <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">other_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">_values</span>
+<span class="g g-Whitespace">   </span><span class="mi">1908</span>         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_level_reference</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1909</span>             <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">_values</span>
+<span class="g g-Whitespace">   </span><span class="mi">1910</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1911</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1912</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1913</span>         <span class="c1"># Check for duplicates</span>
+<span class="g g-Whitespace">   </span><span class="mi">1914</span>         <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
 
-<span class="ne">AttributeError</span>: Can only use .str accessor with string values!
+<span class="ne">KeyError</span>: &#39;R_fighter&#39;
 </pre></div>
 </div>
 </div>
