@@ -133,7 +133,7 @@ df_clean['sub_att_diff'] = df_clean['R_avg_SUB_ATT'] - df_clean['B_avg_SUB_ATT']
 
 df_clean.to_csv("ufc_clean.csv", index=False) 
 
- 
+df = df.reset_index(drop=true)
 
 # Stap 11: Eerste 5 rijen laten zien 
 
@@ -141,57 +141,14 @@ print(df_clean.head(5))
 ------------------
 
 
-[31m---------------------------------------------------------------[39m
-[31mKeyError[39m                      Traceback (most recent call last)
-[32m~\AppData\Local\Temp\ipykernel_25392\1003291079.py[39m in [36m?[39m[34m()[39m
-[32m     20[39m 
-[32m     21[39m 
-[32m     22[39m [38;5;66;03m# Stap 3: Merge datasets op vechtersnamen (datum wordt genegeerd)[39;00m
-[32m     23[39m 
-[32m---> [39m[32m24[39m df_merged = pd.merge(df1, df2, on=[[33m'R_fighter'[39m, [33m'B_fighter'[39m], how=[33m'inner'[39m)
-[32m     25[39m 
-[32m     26[39m 
-[32m     27[39m 
+[31m---------------------------------------------------------------------------[39m
+[31mNameError[39m                                 Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 98[39m
+[32m     94[39m [38;5;66;03m# Stap 10: Opslaan als nieuwe CSV [39;00m
+[32m     96[39m df_clean.to_csv([33m"[39m[33mufc_clean.csv[39m[33m"[39m, index=[38;5;28;01mFalse[39;00m) 
+[32m---> [39m[32m98[39m df = [43mdf[49m.reset_index(drop=true)
+[32m    100[39m [38;5;66;03m# Stap 11: Eerste 5 rijen laten zien [39;00m
+[32m    102[39m [38;5;28mprint[39m(df_clean.head([32m5[39m)) 
 
-[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)[39m
-[32m    166[39m             validate=validate,
-[32m    167[39m             copy=copy,
-[32m    168[39m         )
-[32m    169[39m     [38;5;28;01melse[39;00m:
-[32m--> [39m[32m170[39m         op = _MergeOperation(
-[32m    171[39m             left_df,
-[32m    172[39m             right_df,
-[32m    173[39m             how=how,
-
-[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(self, left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, indicator, validate)[39m
-[32m    790[39m             self.right_join_keys,
-[32m    791[39m             self.join_names,
-[32m    792[39m             left_drop,
-[32m    793[39m             right_drop,
-[32m--> [39m[32m794[39m         ) = self._get_merge_keys()
-[32m    795[39m 
-[32m    796[39m         [38;5;28;01mif[39;00m left_drop:
-[32m    797[39m             self.left = self.left._drop_labels_or_levels(left_drop)
-
-[32m~\miniconda3\Lib\site-packages\pandas\core\reshape\merge.py[39m in [36m?[39m[34m(self)[39m
-[32m   1293[39m                         [38;5;66;03m# Then we're either Hashable or a wrong-length arraylike,[39;00m
-[32m   1294[39m                         [38;5;66;03m#  the latter of which will raise[39;00m
-[32m   1295[39m                         rk = cast(Hashable, rk)
-[32m   1296[39m                         [38;5;28;01mif[39;00m rk [38;5;28;01mis[39;00m [38;5;28;01mnot[39;00m [38;5;28;01mNone[39;00m:
-[32m-> [39m[32m1297[39m                             right_keys.append(right._get_label_or_level_values(rk))
-[32m   1298[39m                         [38;5;28;01melse[39;00m:
-[32m   1299[39m                             [38;5;66;03m# work-around for merge_asof(right_index=True)[39;00m
-[32m   1300[39m                             right_keys.append(right.index._values)
-
-[32m~\miniconda3\Lib\site-packages\pandas\core\generic.py[39m in [36m?[39m[34m(self, key, axis)[39m
-[32m   1907[39m             values = self.xs(key, axis=other_axes[[32m0[39m])._values
-[32m   1908[39m         [38;5;28;01melif[39;00m self._is_level_reference(key, axis=axis):
-[32m   1909[39m             values = self.axes[axis].get_level_values(key)._values
-[32m   1910[39m         [38;5;28;01melse[39;00m:
-[32m-> [39m[32m1911[39m             [38;5;28;01mraise[39;00m KeyError(key)
-[32m   1912[39m 
-[32m   1913[39m         [38;5;66;03m# Check for duplicates[39;00m
-[32m   1914[39m         [38;5;28;01mif[39;00m values.ndim > [32m1[39m:
-
-[31mKeyError[39m: 'R_fighter'
+[31mNameError[39m: name 'df' is not defined
 
