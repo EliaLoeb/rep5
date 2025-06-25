@@ -504,7 +504,7 @@ document.write(`
 
 <span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
 
- 
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
 
 <span class="c1"># Stap 11: Eerste 5 rijen laten zien </span>
 
@@ -513,33 +513,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   R_age  B_age  R_Height_cms  B_Height_cms  R_Reach_cms  B_Reach_cms  \
-0   27.0   31.0        170.18        165.10       177.80       170.18   
-1   28.0   32.0        182.88        187.96       187.96       193.04   
-5   41.0   27.0        182.88        177.80       190.50       182.88   
-6   31.0   35.0        182.88        180.34       180.34       193.04   
-7   37.0   28.0        185.42        190.50       195.58       205.74   
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">98</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span> <span class="c1"># Stap 10: Opslaan als nieuwe CSV </span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;ufc_clean.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="ne">---&gt; </span><span class="mi">98</span> <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span> <span class="c1"># Stap 11: Eerste 5 rijen laten zien </span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span> <span class="nb">print</span><span class="p">(</span><span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> 
 
-   R_avg_SIG_STR_pct  B_avg_SIG_STR_pct  R_avg_TD_pct  B_avg_TD_pct  \
-0           0.500000           0.420000      0.000000      0.330000   
-1           0.576875           0.660000      0.406250      0.300000   
-5           0.565156           0.515000      0.337031      0.435000   
-6           0.493125           0.459277      0.000000      0.322188   
-7           0.515636           0.791582      0.355824      0.269199   
-
-   R_avg_SUB_ATT  B_avg_SUB_ATT  weight_class Winner  age_diff  height_diff  \
-0       0.000000       0.500000  Bantamweight    Red      -4.0         5.08   
-1       0.250000       1.500000  Middleweight    Red      -4.0        -5.08   
-5       0.039062       1.250000   Lightweight   Blue      14.0         5.08   
-6       0.000000       0.189453  Welterweight   Blue      -4.0         2.54   
-7       0.000092       0.029297  Middleweight    Red       9.0        -5.08   
-
-   reach_diff  strike_acc_diff  td_acc_diff  sub_att_diff  
-0        7.62         0.080000    -0.330000     -0.500000  
-1       -5.08        -0.083125     0.106250     -1.250000  
-5        7.62         0.050156    -0.097969     -1.210938  
-6      -12.70         0.033848    -0.322188     -0.189453  
-7      -10.16        -0.275946     0.086625     -0.029205  
+<span class="ne">NameError</span>: name &#39;df&#39; is not defined
 </pre></div>
 </div>
 </div>
